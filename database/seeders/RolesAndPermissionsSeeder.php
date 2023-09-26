@@ -32,14 +32,16 @@ class RolesAndPermissionsSeeder extends Seeder
           $StaffRole = Role::create(['name' => 'staff']);
           $SpaOwnerRole = Role::create(['name' => 'spaOwner']);
 
-          $ClientRole->givePermissionTo('edit');
+          //client can show
+          $ClientRole->givePermissionTo('show');
+          $ManagerRole->givePermissionTo(['show',"edit"]);
 
+          //admin can do all
+          $AdminRole->givePermissionTo(Permission::all());
           // or may be done by chaining
-          $role = Role::create(['name' => 'moderator'])
-              ->givePermissionTo(['publish articles', 'unpublish articles']);
+        //   $role = Role::create(['name' => 'moderator'])
+        //       ->givePermissionTo(['publish articles', 'unpublish articles']);
 
-          $role = Role::create(['name' => 'super-admin']);
-          $role->givePermissionTo(Permission::all());
       }
 
 }
